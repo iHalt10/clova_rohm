@@ -20,7 +20,7 @@ const clovaSkillHandler = clova.Client
     const sessionId = responseHelper.getSessionId();
         // console.log('dddd');
     // console.log('Intent:' + intent);
-    logger.info('sessionId', { sessionId: sessionId})
+    logger.info('UserId', { sessionId: responseHelper.getUser().userId});
     if(intent === 'SpeakIntent'){
         const slots = responseHelper.getSlots();
         // console.log(slots);
