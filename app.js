@@ -17,11 +17,11 @@ const clovaSkillHandler = clova.Client
     .onIntentRequest(async responseHelper => {
     const intent = responseHelper.getIntentName();
     const sessionId = responseHelper.getSessionId();
-        console.log('dddd');
-    console.log('Intent:' + intent);
+        // console.log('dddd');
+    // console.log('Intent:' + intent);
     if(intent === 'SpeakIntent'){
         const slots = responseHelper.getSlots();
-        console.log(slots);
+        // console.log(slots);
         //デフォルトのスピーチ内容を記載 - 該当スロットがない場合をデフォルト設定
         let speech = {
             lang: 'ja',
