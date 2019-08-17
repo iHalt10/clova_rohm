@@ -1,5 +1,6 @@
 const clova = require('@line/clova-cek-sdk-nodejs');
 const express = require('express');
+const logger = require('heroku-logger');
 
 const clovaSkillHandler = clova.Client
     .configureSkill()
@@ -19,6 +20,7 @@ const clovaSkillHandler = clova.Client
     const sessionId = responseHelper.getSessionId();
         // console.log('dddd');
     // console.log('Intent:' + intent);
+    logger.info('sessionId', { sessionId: sessionId})
     if(intent === 'SpeakIntent'){
         const slots = responseHelper.getSlots();
         // console.log(slots);
