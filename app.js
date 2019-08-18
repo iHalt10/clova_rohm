@@ -30,14 +30,29 @@ const clovaSkillHandler = clova.Client
             type: 'PlainText',
             value: `すみません、聞き取れませんでした。`
         }
-        if(slots.Speak_Type === 'おはよう'){
-            speech.value = `テスト、おはよう`;
-        }else if(slots.Speak_Type === 'こんにちは'){
-          speech.value = `テスト、こんにちは`;
+        var kind = -1;
+        if (slots.Speak_Type === 'がんばれ'){
+            speech.value = `テスト、がんばれ`;
+            kind = 1;
+        } else if (slots.Speak_Type === 'かわいい'){
+            speech.value = `テスト、かわいい`;
+            kind = 2;
         }
-        else if(slots.Speak_Type === 'こんばんは'){
-          speech.value = `テスト、こんばんは`;
+        else if (slots.Speak_Type === 'かっこいい'){
+            speech.value = `テスト、かっこいい`;
+            kind = 3;
         }
+        else if (slots.Speak_Type === 'すき') {
+            speech.value = `テスト、すき`;
+            kind = 4;
+        }
+        else if (slots.Speak_Type === 'びっくり') {
+            speech.value = `テスト、びっくり`;
+            kind = 5;
+        }
+        io.emit('word', {
+            str: kind
+        });
         responseHelper.setSimpleSpeech(speech);
         responseHelper.setSimpleSpeech(speech, true);
     }
@@ -57,4 +72,11 @@ const port = process.env.PORT || 3000;
 const clovaMiddleware = clova.Middleware({applicationId: 'com.rohm.takeaki'});
 app.post('/clova', clovaMiddleware, clovaSkillHandler);
 
-app.listen(port, () => console.log(`Server running on ${port}`));
+var http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+io.on('connection', function (socket) {
+    logger.info('Connected');
+});
+
+http.listen(port, () => console.log(`Server running on ${port}`));
