@@ -1,7 +1,7 @@
 const clova = require('@line/clova-cek-sdk-nodejs');
 const express = require('express');
 const logger = require('heroku-logger');
-const app = new express();
+const app = express();
 const port = process.env.PORT || 3000;
 var http = require('http').Server(app);
 const io = require('socket.io')(http);
