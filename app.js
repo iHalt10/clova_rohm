@@ -1,6 +1,10 @@
 const clova = require('@line/clova-cek-sdk-nodejs');
 const express = require('express');
 const logger = require('heroku-logger');
+const app = new express();
+const port = process.env.PORT || 3000;
+var http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 const clovaSkillHandler = clova.Client
     .configureSkill()
@@ -64,16 +68,9 @@ const clovaSkillHandler = clova.Client
     })
     .handle();
 
-
-const app = new express();
-const port = process.env.PORT || 3000;
-
 //リクエストの検証を行う場合。環境変数APPLICATION_ID(値はClova Developer Center上で入力したExtension ID)が必須
 const clovaMiddleware = clova.Middleware({applicationId: 'com.rohm.takeaki'});
 app.post('/clova', clovaMiddleware, clovaSkillHandler);
-
-var http = require('http').Server(app);
-const io = require('socket.io')(http);
 
 io.on('connection', function (socket) {
     logger.info('Connected');
