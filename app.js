@@ -75,8 +75,6 @@ const clovaSkillHandler = clova.Client
 const clovaMiddleware = clova.Middleware({ applicationId: 'com.rohm.takeaki' });
 app.post('/clova', clovaMiddleware, clovaSkillHandler);
 
-app.get('/clova', clovaMiddleware, clovaSkillHandler);
-
 app.get("/fetch", function (req, res, next) {
     res.send(kind.toString());
     // res.json({
