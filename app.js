@@ -79,7 +79,7 @@ app.get('/clova', clovaMiddleware, clovaSkillHandler);
 
 app.get("/fetch", function (req, res, next) {
     res.json({
-        str: kind
+        kind: kind
     });
     kind = -1;
 });
