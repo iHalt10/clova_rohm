@@ -8,6 +8,7 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 const INDEX = path.join(__dirname, 'index.html');
+var kind = -1;
 
 app.get('/', function (req, res) {
     res.sendFile(INDEX);
@@ -37,7 +38,6 @@ const clovaSkillHandler = clova.Client
                 type: 'PlainText',
                 value: `すみません、聞き取れませんでした。`
             }
-            var kind = -1;
             if (slots.Speak_Type === 'がんばれ') {
                 speech.value = `テスト、がんばれ`;
                 kind = 1;
@@ -74,6 +74,15 @@ const clovaSkillHandler = clova.Client
 //リクエストの検証を行う場合。環境変数APPLICATION_ID(値はClova Developer Center上で入力したExtension ID)が必須
 const clovaMiddleware = clova.Middleware({ applicationId: 'com.rohm.takeaki' });
 app.post('/clova', clovaMiddleware, clovaSkillHandler);
+
+app.get('/clova', clovaMiddleware, clovaSkillHandler);
+
+app.get("/fetch", function (req, res, next) {
+    res.json({
+        str: kind
+    });
+    kind = -1;
+});
 
 io.on('connection', (socket) => {
     logger.info('Client connected');
