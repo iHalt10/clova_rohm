@@ -78,7 +78,7 @@ app.post('/clova', clovaMiddleware, clovaSkillHandler);
 app.get('/clova', clovaMiddleware, clovaSkillHandler);
 
 app.get("/fetch", function (req, res, next) {
-    res.send(kind);
+    res.send(kind.toString());
     // res.json({
     //     kind: kind
     // });
