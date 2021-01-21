@@ -14,6 +14,6 @@
     "@line/clova-cek-sdk-nodejs": "^1.1.2",
     "express": "^4.16.4",
     "heroku-logger": "^0.3.3",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.4.0"
   }
 }
